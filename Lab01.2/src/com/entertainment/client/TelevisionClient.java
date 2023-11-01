@@ -28,9 +28,9 @@ class TelevisionClient {
         System.out.println("tvA.equals(tvB): " + tvA.equals(tvB));
         System.out.println();
 
-//        System.out.println(tvA.hashCode());
-//        System.out.println(tvB.hashCode());
-//        System.out.println();
+        System.out.println(tvA.hashCode());
+        System.out.println(tvB.hashCode());
+        System.out.println();
 
         Set<Television> tvs = new HashSet<>();
         tvs.add(tvA);

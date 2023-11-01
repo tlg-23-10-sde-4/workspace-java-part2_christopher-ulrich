@@ -51,22 +51,39 @@ public class Television { // Private or Public or public/private (default)?
         this.volume = volume;
     }
 
-    @Override
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) return true;   // Check to see if the obj being passed is the exact obj as the one doing the checking
+//
+//        if (obj == null || getClass() != obj.getClass()) return false;  // Check to make sure it's the same type of Class - NOT an IS-A
+//        Television that = (Television) obj;
+//
+//        return this.getVolume() == that.getVolume() &&
+//               Objects.equals(this.getBrand(), that.getBrand());
+//    }
+
+    /* @Override
     public int hashCode() {
-        /* This is a poorly written hash function because it easily yields "hash collisions."
-         * A hash collision is when "different" objects have the same hash code (just by coincidence).
-         */
-        // return getBrand().length() + getVolume();
+
+//        /* This is a poorly written hash function because it easily yields "hash collisions."
+//         * A hash collision is when "different" objects have the same hash code (just by coincidence).
+//         * Given our poor initial hash function below,
+//         * "Sony" 50 and "LG" 52 both have hash codes of 54, as does "Samsung" 47.
+//         * These are "different" objects per the equals() method, but have the same hash code
+//
+//        return getBrand().length() + getVolume();
 
         // Instead we rely on Objects.hash() to give us a valid hash function
-        return Objects.hash(getBrand(), getVolume());
-    }
+         return Objects.hash(getBrand(), getVolume());
+    }   */
 
     @Override
     public boolean equals(Object obj) {
+
         boolean result = false;
         // Proceed ONLY IF obj is referencing a Television object
-        if (obj instanceof Television) {
+        // if (obj instanceof Television) {    // Check to make sure Objects are of the same type, but can be IS-A
+        if (obj != null && this.getClass() == obj.getClass()) {    // This makes sure that one obj isn't a subclass of another, throws out false if null
             // Downcast obj reference to more specific Person type
             Television other = (Television) obj;
 
