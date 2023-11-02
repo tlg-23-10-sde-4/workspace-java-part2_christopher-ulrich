@@ -1,12 +1,16 @@
 /*
- * Some header text
+ * To be consistent with equals (TreeSet(), for example), whatever fields we use for equals() and hashCode()
+ * MUST be the same as those for natural order.
+ *
+ * That means we must switch to a primary sort key 'brand' and when tied on 'brand'
+ * we break the tie via a secondary sort key 'volume'
  */
 
 package com.entertainment;
 
 import java.util.Objects;
-
-public class Television { // Private or Public or public/private (default)?
+// Natural order is defined by sort key 'brand' (String)
+public class Television implements Comparable<Television> { // Private or Public or public/private (default)?
 
     // CLASS (static or public) variables - these are shared among all instances
     private String brand;
@@ -51,6 +55,18 @@ public class Television { // Private or Public or public/private (default)?
         this.volume = volume;
     }
 
+    // Natural order is defined by sort key 'brand' (String). - that was the first method, TreeSet() breaks it
+    // because TreeSet() uses 'equals()' instead of compareTo()
+    @Override
+    public int compareTo(Television other) {
+//        return this.getBrand().compareTo(other.getBrand());
+        int result = this.getBrand().compareTo(other.getBrand());
+        if (result == 0) {  // Brands are the same
+            result = Integer.compare(this.getVolume(), other.getVolume());
+        }
+        return result;
+    }
+
 //    @Override
 //    public boolean equals(Object obj) {
 //        if (this == obj) return true;   // Check to see if the obj being passed is the exact obj as the one doing the checking
@@ -62,7 +78,7 @@ public class Television { // Private or Public or public/private (default)?
 //               Objects.equals(this.getBrand(), that.getBrand());
 //    }
 
-    /* @Override
+     @Override
     public int hashCode() {
 
 //        /* This is a poorly written hash function because it easily yields "hash collisions."
@@ -75,7 +91,7 @@ public class Television { // Private or Public or public/private (default)?
 
         // Instead we rely on Objects.hash() to give us a valid hash function
          return Objects.hash(getBrand(), getVolume());
-    }   */
+    }
 
     @Override
     public boolean equals(Object obj) {
