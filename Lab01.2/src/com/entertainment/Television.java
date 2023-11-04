@@ -9,7 +9,7 @@
 package com.entertainment;
 
 import java.util.Objects;
-// Natural order is defined by sort key 'brand' (String)
+// Natural order is defined by sort key 'brand' (String) and 'volume (int)
 public class Television implements Comparable<Television> { // Private or Public or public/private (default)?
 
     // CLASS (static or public) variables - these are shared among all instances
@@ -56,7 +56,7 @@ public class Television implements Comparable<Television> { // Private or Public
     }
 
     // Natural order is defined by sort key 'brand' (String). - that was the first method, TreeSet() breaks it
-    // because TreeSet() uses 'equals()' instead of compareTo()
+    // because TreeSet() uses 'equals()' instead of compareTo(), and equals() works off of a single sort key rather than 2.
     @Override
     public int compareTo(Television other) {
 //        return this.getBrand().compareTo(other.getBrand());
