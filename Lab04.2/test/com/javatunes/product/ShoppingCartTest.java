@@ -18,11 +18,11 @@ public class ShoppingCartTest {
    */
   @Test
   public void testProductCart() {
-    ShoppingCart<Product> cart = new ShoppingCart<>();
+    ShoppingCart<Product> cart = new ShoppingCart<>();  // What's the T? Product
     cart.addItem(new MusicItem("CD-501"));
     cart.addItem(new MediaPlayer("MP3-LP150"));
     // sanity check, this qualifies as "too simple to fail"
-    // assertEquals(2, cart.size());
+    assertEquals(2, cart.size());
   }
   
   /**
