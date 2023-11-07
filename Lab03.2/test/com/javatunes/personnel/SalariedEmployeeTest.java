@@ -11,6 +11,7 @@ public class SalariedEmployeeTest {
     // fixture: business object(s) under test
     private SalariedEmployee emp;
     private SalariedEmployee emp2;
+
     @Before
     public void setUp() {
         emp = new SalariedEmployee("Logan", Date.valueOf("2020-02-06"), 1500.0);
@@ -47,8 +48,8 @@ public class SalariedEmployeeTest {
 
     @Test
     public void equals_shouldReturnFalse_sameName_differentHireDate_sameSalary() {
-    emp2.setHireDate(Date.valueOf("2020-06-01"));
-    assertNotEquals(emp, emp2);
+        emp2.setHireDate(Date.valueOf("2020-06-01"));
+        assertNotEquals(emp, emp2);
     }
 
     @Test

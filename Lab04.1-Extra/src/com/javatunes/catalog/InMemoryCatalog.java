@@ -90,6 +90,9 @@ public class InMemoryCatalog implements Catalog {
      *
      * A no-matches result should return an empty collection (not null).
      */
+
+    // Interface contract methods from the spec (Catalog interface)
+
     @Override
     public Collection<MusicItem> findByKeyword(String keyword) { // Need to try with MusicItem
         Collection<MusicItem> theKeys = new ArrayList<>();
@@ -165,8 +168,9 @@ public class InMemoryCatalog implements Catalog {
     /**
      * TASK: how many items of the specified genre (MusicCategory) do we sell?
      */
-    public int numberInGenre(MusicCategory category) {
-        return 0;
+    public int numberInGenre(MusicCategory category) {  // already have findByCategory
+
+        return findByCategory(category).size();
     }
 
     /**

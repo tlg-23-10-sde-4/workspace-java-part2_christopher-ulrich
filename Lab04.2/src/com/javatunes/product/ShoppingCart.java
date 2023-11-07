@@ -19,31 +19,34 @@ import java.util.Collections;
  */
 
 public class ShoppingCart<T extends Product> {  // Shopping cart of anything AS LONG AS that thing is a product
-  // storage for the cart's contents - this is a classic HAS-A
-  private final Collection<T> items = new ArrayList<T>();  // diamond not used here just to emphasize the T
+    // storage for the cart's contents - this is a classic HAS-A
+    // Shopping cart HAS-A collection of Product items
+    private final Collection<T> items = new ArrayList<T>();  // diamond not used here just to emphasize the T
 
-  public double total() {
-    double result = 0.0;
+    // This is the only method that doesn't use a super method
+    // Therefore it will redline if you don't constrain <T> to extend Product, thus giving <T> the methods that come from Product
+    public double total() {
+        double result = 0.0;
 
-    for (T item : items) {
-      result += item.getPrice();
+        for (T item : items) {
+            result += item.getPrice();
+        }
+        return result;
     }
-    return result;
-  }
 
-  public Collection<T> allItems() {
-    return Collections.unmodifiableCollection(items);
-  }
+    public Collection<T> allItems() {
+        return Collections.unmodifiableCollection(items);
+    }
 
-  public int size() {
-    return items.size();
-  }
-  
-  public void addItem(T item) {
-    items.add(item);
-  }
-  
-  public void removeItem(T item) {
-    items.remove(item);
-  }
+    public int size() {
+        return items.size();
+    }
+
+    public void addItem(T item) {
+        items.add(item);
+    }
+
+    public void removeItem(T item) {
+        items.remove(item);
+    }
 }
