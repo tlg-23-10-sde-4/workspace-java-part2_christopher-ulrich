@@ -10,8 +10,6 @@ class BoardTest {
     public static void main(String[] args) {
         Board board = new Board();
 
-        // board.dumpStudentIDMap();
-
         board.addWin(4, DEBIT_CARD);
         board.addWin(4, DEBIT_CARD);
         board.addWin(14, DEBIT_CARD);

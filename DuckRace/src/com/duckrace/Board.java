@@ -38,10 +38,14 @@ import java.util.*;
  *   17       17    Dom        1    DEBIT_CARD
  */
 
-class Board {
+public class Board {
     // Fields
     private final Map<Integer,String> studentIdMap = loadStudentIDMap();
     private final Map<Integer,DuckRacer> racerMap = new TreeMap<>();
+
+    public int maxId() {
+        return studentIdMap.size();
+    }
 
     /*
      * Updates the board (racerMap) by making a duck racer object "win".
@@ -53,7 +57,7 @@ class Board {
      */
 
     public void addWin(int id, Reward reward) {
-        DuckRacer racer = null;
+        DuckRacer racer;
 
         if (racerMap.containsKey(id)) {
             racer = racerMap.get(id);
@@ -81,6 +85,18 @@ class Board {
      * System.out.printf("%s   %s   %s    %s", racer.get(id), racer.getName(), racer.getRewards());
      * Intro course session 5
      */
+
+    public void show() {
+        // title and headings
+        StringBuilder display = new StringBuilder();
+        display.append("\nDuck Race Results\n");
+        display.append("===============\n");
+        display.append("\n");
+
+        if(racerMap.isEmpty()) {
+            display.append("The board is empty");
+        }
+    }
     void showResults() {
         // This kinda works, but includes all the racers that haven't won yet
 //        for (int i = 0; i <= 19; i++) {
