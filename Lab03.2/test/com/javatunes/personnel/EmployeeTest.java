@@ -13,12 +13,20 @@ public class EmployeeTest {
 
     @Before
     public void setUp() {
-        emp1 = new SalariedEmployee("Mary Lou", Date.valueOf("1999-09-09"));
-        emp2 = new SalariedEmployee("Mary Lou", Date.valueOf("1999-09-09"));
+//        emp1 = new DummyEmployee("Mary Lou", Date.valueOf("1999-09-09"));
+//        emp2 = new DummyEmployee("Mary Lou", Date.valueOf("1999-09-09"));
+        emp1 = getEmployee();
+        emp2 = getEmployee();
+
+    private Employee getEmployee() {
+        return new Employee("Mary Lou", Date.valueOf("1999-09-09")) {
+            public double pay() { return 0; }
+            public double payTaxes() { return 0;}
+        };
     }
 
     @Test
-    public void equals_shouldReturnFalse_differentName_sameHireDate() {
+    public void equals_shouldReturnFalse_differentName_sameHireDate() { // these calls land on SalariedEmployee objects; salary IS NOT left out
         emp2.setName("Thomas");
         assertNotEquals(emp1, emp2);
     }
@@ -32,5 +40,16 @@ public class EmployeeTest {
     public void equals_shouldReturnFalse_sameName_differentHireDate() {
         emp2.setHireDate(Date.valueOf("2000-02-02"));
         assertNotEquals(emp1, emp2);
+    }
+
+    //NAMED, MEMBER-LEVEL INNER CLASS
+    private class DummyEmployee extends Employee {  // Does not override equals
+
+        public DummyEmployee(String name, Date hireDate) {
+            super(name, hireDate);
+        }
+
+        public double pay() {return 0.0;}
+        public double payTaxes() {return 0.0;}
     }
 }
