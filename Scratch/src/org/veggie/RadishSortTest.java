@@ -5,6 +5,7 @@
 package org.veggie;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 class RadishSortTest {
@@ -27,13 +28,31 @@ class RadishSortTest {
         dump(radishes);
         System.out.println();
 
-        System.out.println("color via radishColorComparator");
-        radishes.sort(new RadishColorComparator());
+        System.out.println("color via anonymous class");
+        //radishes.sort(new RadishColorComparator());   // edited out to allow for anonymous class
+        radishes.sort(new Comparator<Radish>() {
+            @Override
+            public int compare(Radish r1, Radish r2) {
+                return r1.getColor().compareTo(r2.getColor());
+            }
+        });
         dump(radishes);
         System.out.println();
 
         System.out.println("guysOnTop via the comparator");
         radishes.sort(new RadishGuysOnTopComparator());
+        dump(radishes);
+        System.out.println();
+
+        System.out.println("sort by tailLength, via anonymous Class");  // Giterdun
+        radishes.sort(new Comparator<Radish>() {    // anonymous class passing an instance of an unnamed class
+            // instead of writing a new class definition
+
+            @Override
+            public int compare(Radish r1, Radish r2) {
+                return Double.compare(r1.getTailLength(), r2.getTailLength());
+            }
+        });
         dump(radishes);
         System.out.println();
     }
