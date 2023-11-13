@@ -11,9 +11,12 @@ import com.duckrace.Reward;
 import java.util.Locale;
 import java.util.Scanner;
 
-class DuckRaceApp {
-    private final Board board = new Board();
+public class DuckRaceApp {
+    private final Board board = board.getInstance();
+    private final BoardView boardview = new BoardView(board);
     private final Scanner scanner = new Scanner(System.in);
+    private final int maxId = board.maxId();
+
 
     public void execute() {
         welcome();
@@ -53,7 +56,7 @@ class DuckRaceApp {
 
         boolean validInput = false;
         while(!validInput) {
-            System.out.println("Please enter the id of the winner [1-%s]: ", Board); //TODO: don't harcode the 19
+            System.out.println("Please enter the id of the winner [1-%s]: ", ); //TODO: don't harcode the 19
             String input = scanner.nextLine().trim();  // Application will hang until the user presses ENTER. .trim() removes any hanging spaces
             if (input.matches("\\d{1,2}")) {    // After this, we are safe to Integer.parseInt()
                 id = Integer.parseInt(input);

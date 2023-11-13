@@ -1,6 +1,6 @@
 package com.duckrace;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -38,10 +38,38 @@ import java.util.*;
  *   17       17    Dom        1    DEBIT_CARD
  */
 
-public class Board {
+public class Board implements Serializable {
+    private static final String dataFilePath = "data/board.dat";
+    /*
+     * If data/board.dat exists, read that file into a Board object and return it.
+     * We will use Java's built-in object serialization feature.
+     * Otherwise, return a new Board().
+     */
+
+    public static Board getInstance() {
+    Board board = null;
+
+    if (Files.exists(Path.of(dataFilePath)) ) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(dataFilePath))) {
+            board =(Board)  in.readObject();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    else {
+        board = new Board();
+    }
+    return board;
+}
     // Fields
     private final Map<Integer,String> studentIdMap = loadStudentIDMap();
     private final Map<Integer,DuckRacer> racerMap = new TreeMap<>();
+
+    // prevent instantiation from outside. Only done from getInstance() method
+    private Board() {
+
+    }
 
     public int maxId() {
         return studentIdMap.size();
@@ -67,6 +95,21 @@ public class Board {
             racerMap.put(id, racer);
         }
         racer.win(reward);
+        save();
+    }
+
+    /*
+     * Writes *this* board object to binary file data/board.dat
+     * Uses build-in Java object serialization facility
+     */
+
+    private void save() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(dataFilePath))) {
+            out.writeObject(this);
+        }
+        catch (Exception e) {
+
+        }
     }
 
     /*
@@ -92,9 +135,20 @@ public class Board {
         display.append("\nDuck Race Results\n");
         display.append("===============\n");
         display.append("\n");
+        "id     name     wins     rewards\n"
+        "--     ----     ----     -------\n"
 
         if(racerMap.isEmpty()) {
             display.append("The board is empty");
+        }
+        else {
+            Collection<DuckRacer> racers = racerMap.values();
+            for (DuckRacer racer : racers) {
+                String rewardsString = racer.getRewards().toString();
+                String rewards = rewardsString.substring(1, rewardsString.length() - 1);
+
+                String row = String.format("%2s     %-8s  %4s     %s\n")
+            }
         }
     }
     void showResults() {

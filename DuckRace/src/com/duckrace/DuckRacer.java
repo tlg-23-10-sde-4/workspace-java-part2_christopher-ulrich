@@ -4,12 +4,13 @@
 
 package com.duckrace;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class DuckRacer {
+public class DuckRacer implements Serializable {
 
     // CLASS (static or public) variables - these are shared among all instances
     private final int id;
