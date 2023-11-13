@@ -17,7 +17,7 @@ public class EmployeeClient {
     public static void main(String[] args) {
         SalariedEmployee emp = new SalariedEmployee("Leanne", LocalDate.of(1990, Month.AUGUST, 24), 34000.0);
         emp.work();
-        emp.takeVacation(false);
+        emp.takeVacation(true);    // Do not fork off a new thread. We wait for vacation to end.
         System.out.println("Client code continues working with other employees");
     }
 }
