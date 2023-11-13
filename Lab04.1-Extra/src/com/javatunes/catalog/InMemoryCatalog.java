@@ -10,6 +10,7 @@ package com.javatunes.catalog;
 
 import java.util.*;
 import java.lang.String.*;
+import java.util.stream.Collectors;
 
 import static java.lang.String.valueOf;
 
@@ -112,14 +113,19 @@ public class InMemoryCatalog implements Catalog {
      */
     @Override
     public Collection<MusicItem> findByCategory(MusicCategory category) {
-        Collection<MusicItem> result = new ArrayList<>();
-        for (MusicItem item : catalogData) {
-            if (item.getMusicCategory().equals(category)) {
-                result.add(item);
-            }
-        }
-        return result;
+        return catalogData.stream()
+                .filter()
+                .collect(Collectors.toList());
+
     }
+//        Collection<MusicItem> result = new ArrayList<>();
+//        for (MusicItem item : catalogData) {
+//            if (item.getMusicCategory().equals(category)) {
+//                result.add(item);
+//            }
+//        }
+//        return result;
+//    }
 
     /** FINISHED
      * Size of the catalog.
@@ -145,16 +151,21 @@ public class InMemoryCatalog implements Catalog {
      * For example, Madonna's first album is simply titled, "Madonna."
      */
     public Collection<MusicItem> findSelfTitled() {
-        Collection<MusicItem> result = new ArrayList<>();
+        return catalogData.stream()
+                .filter(item -> item.getTitle().equals(item.getArtist()))
+                .collect(Collectors.toList());
 
-        for (MusicItem item : catalogData) {
-            if (item.getArtist().equals(item.getTitle())) {
-                result.add(item);
-            }
-        }
-
-        return result;
     }
+//        Collection<MusicItem> result = new ArrayList<>();
+//
+//        for (MusicItem item : catalogData) {
+//            if (item.getArtist().equals(item.getTitle())) {
+//                result.add(item);
+//            }
+//        }
+//
+//        return result;
+//    }
 
     /**
      * TASK: find all "rock" items whose price is less than or equal to the specified price.

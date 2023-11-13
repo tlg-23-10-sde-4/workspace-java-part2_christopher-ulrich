@@ -5,6 +5,9 @@
 package com.javatunes.billing;
 
 public class TaxCalculatorFactory{
+    /*
+     * Cache of previously-created TaxCalculator
+     */
     // prevent instantiation from outside, this is an all-static class
     private TaxCalculatorFactory() {
     }
